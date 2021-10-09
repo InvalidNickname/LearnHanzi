@@ -36,7 +36,9 @@ class HomeFragment : Fragment() {
             val readyToReview = dao.getReviewCount()
             val percent = 100 * dao.getFullyLearntCount() / dao.countAll()
             withContext(Dispatchers.Main) {
+                view?.findViewById<ConstraintLayout>(R.id.button_learn)?.isEnabled = readyToLearn > 0
                 view?.findViewById<TextView>(R.id.n_more_left)?.text = String.format(getString(R.string.n_more_left), readyToLearn)
+                view?.findViewById<ConstraintLayout>(R.id.button_review)?.isEnabled = readyToReview > 0
                 view?.findViewById<TextView>(R.id.n_more_left_review)?.text = String.format(getString(R.string.n_more_left), readyToReview)
                 view?.findViewById<ProgressBar>(R.id.progress_bar)?.progress = percent
                 view?.findViewById<TextView>(R.id.progress_bar_text)?.text = String.format(getString(R.string.fully_learnt), percent)
