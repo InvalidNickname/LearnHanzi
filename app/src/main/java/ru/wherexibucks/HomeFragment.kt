@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         // обновляем количество карточек для изучения/повторения
         GlobalScope.launch(Dispatchers.IO) {
             val readyToLearn = dao.getReadyToBeLearntCount()
-            val readyToReview = dao.getReviewCount()
+            val readyToReview = dao.getReviewCount(System.currentTimeMillis())
             val percent = 100 * dao.getFullyLearntCount() / dao.countAll()
             withContext(Dispatchers.Main) {
                 view?.findViewById<ConstraintLayout>(R.id.button_learn)?.isEnabled = readyToLearn > 0

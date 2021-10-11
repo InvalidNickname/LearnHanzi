@@ -26,19 +26,19 @@ interface Dao {
     /**
      * Возвращает количество карточек, готовых для повторения
      */
-    @Query("SELECT COUNT(*) FROM Card WHERE level >= 0 AND time_till_next <= CURRENT_TIMESTAMP")
-    suspend fun getReviewCount(): Int
+    @Query("SELECT COUNT(*) FROM Card WHERE level >= 0 AND level < 9 AND time_till_next <= :time")
+    suspend fun getReviewCount(time: Long): Int
 
     /**
      * Возвращает набор карточек, готовых для повторения
      */
-    @Query("SELECT * FROM Card WHERE level >= 0 AND time_till_next <= CURRENT_TIMESTAMP")
-    suspend fun getReview(): Array<Card>
+    @Query("SELECT * FROM Card WHERE level >= 0 AND level < 9 AND time_till_next <= :time")
+    suspend fun getReview(time: Long): Array<Card>
 
     /**
      * Возвращает количество карточек, выученных полностью
      */
-    @Query("SELECT COUNT(*) FROM Card WHERE level = 5")
+    @Query("SELECT COUNT(*) FROM Card WHERE level = 9")
     suspend fun getFullyLearntCount(): Int
 
     /**

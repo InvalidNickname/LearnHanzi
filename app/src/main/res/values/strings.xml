@@ -7,4 +7,6 @@
     <string name="review_hanzi">回顾</string>
     <string name="fully_learnt">Fully learnt: %d\%%</string>
     <string name="next">Next</string>
+    <string name="definition">Definition</string>
+    <string name="check">Check</string>
 </resources>
