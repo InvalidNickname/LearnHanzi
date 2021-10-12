@@ -14,14 +14,20 @@ interface Dao {
      * Возвращает символы, которые можно начать учить - они еще не рассматривались до этого,
      * не имеют составляющих, либо все их составляющие полностью выучены
      */
-    @Query("SELECT * FROM Card WHERE level = -1 AND (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol) = (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol AND (SELECT COUNT(*) FROM Card WHERE symbol = radical AND level = 5)>0)")
+    @Query("SELECT * FROM Card WHERE level = -1 AND (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol) = (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol AND (SELECT COUNT(*) FROM Card WHERE symbol = radical AND level >= 5)>0)")
     suspend fun getReadyToBeLearnt(): Array<Card>
 
     /**
      * Возвращает количество символов, готовых для изучения
      */
-    @Query("SELECT COUNT(*) FROM Card WHERE level = -1 AND (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol) = (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol AND (SELECT COUNT(*) FROM Card WHERE symbol = radical AND level = 5)>0)")
+    @Query("SELECT COUNT(*) FROM Card WHERE level = -1 AND (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol) = (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol AND (SELECT COUNT(*) FROM Card WHERE symbol = radical AND level >= 5)>0)")
     suspend fun getReadyToBeLearntCount(): Int
+
+    /**
+     * Возвращает количество символов с требуемым уровнем изучения
+     */
+    @Query("SELECT COUNT(*) FROM Card WHERE level = :level")
+    suspend fun getForLevel(level: Int): Int
 
     /**
      * Возвращает количество карточек, готовых для повторения

@@ -57,5 +57,16 @@ class LearningFragment : Fragment() {
         view?.findViewById<TextView>(R.id.pinyin)?.text = card.pinyin
         view?.findViewById<TextView>(R.id.definition)?.text = card.definition
         view?.findViewById<TextView>(R.id.memo)?.text = card.memo
+        if (i > 0) {
+            view?.findViewById<TextView>(R.id.prev_symbol)?.text = list[i - 1].symbol
+        } else {
+            view?.findViewById<TextView>(R.id.prev_symbol)?.text = "⠀"
+        }
+        view?.findViewById<TextView>(R.id.cur_symbol)?.text = card.symbol
+        if (i < list.size - 1) {
+            view?.findViewById<TextView>(R.id.next_symbol)?.text = list[i + 1].symbol
+        } else {
+            view?.findViewById<TextView>(R.id.next_symbol)?.text = "⠀"
+        }
     }
 }

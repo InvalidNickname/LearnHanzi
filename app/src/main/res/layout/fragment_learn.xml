@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
@@ -14,7 +15,8 @@
         android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="一" />
 
     <TextView
         android:id="@+id/pinyin"
@@ -25,7 +27,8 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/symbol" />
+        app:layout_constraintTop_toBottomOf="@id/symbol"
+        tools:text="yī" />
 
     <TextView
         android:id="@+id/definition"
@@ -36,7 +39,8 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pinyin" />
+        app:layout_constraintTop_toBottomOf="@id/pinyin"
+        tools:text="One" />
 
     <TextView
         android:id="@+id/memo"
@@ -47,20 +51,64 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/definition" />
+        app:layout_constraintTop_toBottomOf="@id/definition"
+        tools:text="Lying on the ground is something that looks just like the ground, the number One. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live." />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/lower_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.85" />
+
+    <TextView
+        android:id="@+id/prev_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:textColor="@color/light_gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintEnd_toStartOf="@id/cur_symbol"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lower_guideline"
+        tools:text="一" />
+
+    <TextView
+        android:id="@+id/cur_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintEnd_toStartOf="@id/next_symbol"
+        app:layout_constraintStart_toEndOf="@id/prev_symbol"
+        app:layout_constraintTop_toBottomOf="@id/lower_guideline"
+        tools:text="二" />
+
+    <TextView
+        android:id="@+id/next_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:textColor="@color/light_gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cur_symbol"
+        app:layout_constraintTop_toBottomOf="@id/lower_guideline"
+        tools:text="三" />
 
     <Button
         android:id="@+id/next"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
         android:elevation="4dp"
         android:enabled="false"
         android:text="@string/next"

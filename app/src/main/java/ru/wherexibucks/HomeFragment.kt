@@ -35,6 +35,7 @@ class HomeFragment : Fragment() {
             val readyToLearn = dao.getReadyToBeLearntCount()
             val readyToReview = dao.getReviewCount(System.currentTimeMillis())
             val percent = 100 * dao.getFullyLearntCount() / dao.countAll()
+            val locked = dao.getForLevel(-1) - readyToLearn
             withContext(Dispatchers.Main) {
                 view?.findViewById<ConstraintLayout>(R.id.button_learn)?.isEnabled = readyToLearn > 0
                 view?.findViewById<TextView>(R.id.n_more_left)?.text = String.format(getString(R.string.n_more_left), readyToLearn)
@@ -42,6 +43,7 @@ class HomeFragment : Fragment() {
                 view?.findViewById<TextView>(R.id.n_more_left_review)?.text = String.format(getString(R.string.n_more_left), readyToReview)
                 view?.findViewById<ProgressBar>(R.id.progress_bar)?.progress = percent
                 view?.findViewById<TextView>(R.id.progress_bar_text)?.text = String.format(getString(R.string.fully_learnt), percent)
+                view?.findViewById<TextView>(R.id.n_of_locked)?.text = String.format(getString(R.string.n_cards_locked), locked)
             }
         }
     }

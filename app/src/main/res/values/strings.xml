@@ -9,4 +9,5 @@
     <string name="next">Next</string>
     <string name="definition">Definition</string>
     <string name="check">Check</string>
+    <string name="n_cards_locked">Cards locked: %d</string>
 </resources>
