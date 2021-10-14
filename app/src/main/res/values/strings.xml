@@ -10,4 +10,6 @@
     <string name="definition">Definition</string>
     <string name="check">Check</string>
     <string name="n_cards_locked">Cards locked: %d</string>
+    <string name="right">Right</string>
+    <string name="wrong">Wrong</string>
 </resources>

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import ru.wherexibucks.database.Card
 import ru.wherexibucks.database.Dao
+import ru.wherexibucks.database.Stats
+import java.text.SimpleDateFormat
 import java.util.*
 
 @DelicateCoroutinesApi
@@ -28,6 +30,7 @@ class ReviewFragment : Fragment() {
     private lateinit var list: Array<Card>
     private var i = 0
     private val nextTimeMatrix = intArrayOf(0, 4, 8, 24, 48, 168, 336, 672, 2688)
+    private val format = SimpleDateFormat("ddMMyyyy", Locale.US)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_review, container, false)
@@ -54,6 +57,9 @@ class ReviewFragment : Fragment() {
             if (answered) {
                 GlobalScope.launch(Dispatchers.IO) {
                     val card = list[i]
+                    val currentDate = format.format(Date())
+                    var stats = dao.getStatsForDay(currentDate)
+                    if (stats == null) stats = Stats(currentDate, 0, 0)
                     if (correct) {
                         // ответ правильный
                         if (card.level < 8) {
@@ -62,6 +68,7 @@ class ReviewFragment : Fragment() {
                         } else {
                             card.time = Long.MAX_VALUE
                         }
+                        stats.revRight++
                     } else {
                         // ответ неправильный
                         if (card.level >= 5) {
@@ -70,8 +77,10 @@ class ReviewFragment : Fragment() {
                             card.level--
                         }
                         card.time = 0
+                        stats.revWrong++
                     }
                     dao.updateCards(card)
+                    dao.insertOrReplaceState(stats)
                     answered = false
                     withContext(Dispatchers.Main) {
                         if (++i < list.size) {

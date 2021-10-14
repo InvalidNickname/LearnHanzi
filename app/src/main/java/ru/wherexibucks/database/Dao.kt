@@ -1,9 +1,7 @@
 package ru.wherexibucks.database
 
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
 
 /**
  * Объект доступа к базе данных
@@ -66,4 +64,25 @@ interface Dao {
      */
     @Query("SELECT COUNT(*) FROM Card")
     suspend fun countAll(): Int
+
+    /**
+     * Добавляет статистику для дня
+     * @param stats - статистика ответов за день
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrReplaceState(stats: Stats)
+
+    /**
+     * Возвращает статистику за указанный день
+     * @param date
+     */
+    @Query("SELECT * FROM Stats WHERE date = :date LIMIT 1")
+    suspend fun getStatsForDay(date: String): Stats?
+
+    /**
+     * Возвращает статистику проверок за последние несколько дней
+     * @param interval - период статистики
+     */
+    @Query("SELECT * FROM Stats ORDER BY date ASC LIMIT :interval")
+    suspend fun getReviewStats(interval: Int): Array<Stats>
 }

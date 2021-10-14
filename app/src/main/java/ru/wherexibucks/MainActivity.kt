@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val learnFragment = supportFragmentManager.findFragmentByTag("learn")
         val reviewFragment = supportFragmentManager.findFragmentByTag("review")
-        if (learnFragment != null || reviewFragment != null) {
+        val statsFragment = supportFragmentManager.findFragmentByTag("stats")
+        if (learnFragment != null || reviewFragment != null || statsFragment != null) {
             supportFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
         } else {
             super.onBackPressed()

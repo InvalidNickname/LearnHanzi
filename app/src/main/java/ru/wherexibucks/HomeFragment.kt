@@ -23,12 +23,17 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         dao = (activity as MainActivity).getDatabase().dao()!!
-        // кнопки изучения/повторения
+        // кнопка изучения
         view?.findViewById<ConstraintLayout>(R.id.button_learn)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, LearningFragment(), "learn").commit()
         }
+        // кнопка повторения
         view?.findViewById<ConstraintLayout>(R.id.button_review)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ReviewFragment(), "review").commit()
+        }
+        // кнопка статистики
+        view?.findViewById<View>(R.id.button_stats)?.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, StatsFragment(), "stats").commit()
         }
         // обновляем количество карточек для изучения/повторения
         GlobalScope.launch(Dispatchers.IO) {
