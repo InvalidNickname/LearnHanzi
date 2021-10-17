@@ -28,6 +28,12 @@ interface Dao {
     suspend fun getForLevel(level: Int): Int
 
     /**
+     * Возвращает количество символов, для который уровень изучения попадает в интервал [start; end]
+     */
+    @Query("SELECT COUNT(*) FROM Card WHERE level >= :start AND level <= :end")
+    suspend fun getForLevelInterval(start: Int, end: Int): Int
+
+    /**
      * Возвращает количество карточек, готовых для повторения
      */
     @Query("SELECT COUNT(*) FROM Card WHERE level >= 0 AND level < 9 AND time_till_next <= :time")
