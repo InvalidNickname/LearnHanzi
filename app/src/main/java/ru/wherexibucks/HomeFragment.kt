@@ -35,6 +35,10 @@ class HomeFragment : Fragment() {
         view?.findViewById<View>(R.id.button_stats)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, StatsFragment(), "stats").commit()
         }
+        // кнопка списка
+        view?.findViewById<View>(R.id.button_list)?.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ListFragment(), "list").commit()
+        }
         // обновляем количество карточек для изучения/повторения
         GlobalScope.launch(Dispatchers.IO) {
             val readyToLearn = dao.getReadyToBeLearntCount()

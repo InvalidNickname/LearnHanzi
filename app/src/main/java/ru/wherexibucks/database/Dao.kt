@@ -91,4 +91,10 @@ interface Dao {
      */
     @Query("SELECT * FROM Stats ORDER BY date ASC LIMIT :interval")
     suspend fun getReviewStats(interval: Int): Array<Stats>
+
+    /**
+     * Возвращает список всех карточек
+     */
+    @Query("SELECT * FROM Card")
+    suspend fun getAll(): Array<Card>
 }

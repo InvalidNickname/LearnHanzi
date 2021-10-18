@@ -12,4 +12,10 @@
     <string name="n_cards_locked">Cards locked: %d</string>
     <string name="right">Right</string>
     <string name="wrong">Wrong</string>
+    <string name="locked">Locked</string>
+    <string name="not_learnt">Not learnt</string>
+    <string name="started_to_learn">Started to learn</string>
+    <string name="learnt_somewhat">Learnt somewhat</string>
+    <string name="learnt">Learnt</string>
+    <string name="burnt">Burnt</string>
 </resources>

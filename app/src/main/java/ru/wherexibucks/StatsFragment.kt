@@ -42,8 +42,8 @@ class StatsFragment : Fragment() {
             reviewsChart.isHighlightPerDragEnabled = false
             reviewsChart.isHighlightPerTapEnabled = false
             val legend = reviewsChart.legend
-            val right = LegendEntry(getString(R.string.right), DEFAULT, Float.NaN, Float.NaN, null, resources.getColor(R.color.green))
-            val wrong = LegendEntry(getString(R.string.wrong), DEFAULT, Float.NaN, Float.NaN, null, resources.getColor(R.color.red))
+            val right = LegendEntry(getString(R.string.right), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.green))
+            val wrong = LegendEntry(getString(R.string.wrong), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.red))
             legend.setCustom(arrayOf(right, wrong))
             GlobalScope.launch(Dispatchers.IO) {
                 val reviews = dao.getReviewStats(30)
@@ -66,6 +66,10 @@ class StatsFragment : Fragment() {
         }
     }
 
+    private fun getColor(id: Int): Int {
+        return ContextCompat.getColor(requireContext(), id)
+    }
+
     private fun setUpLevelsChart() {
         // заполняем график уровней изучения
         val levelsChart = view?.findViewById<PieChart>(R.id.levels_chart)
@@ -84,28 +88,28 @@ class StatsFragment : Fragment() {
                     val entries = mutableListOf<PieEntry>()
                     val colors = mutableListOf<Int>()
                     if (locked > 0) {
-                        entries.add(PieEntry(locked.toFloat(), "Locked"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.gray))
+                        entries.add(PieEntry(locked.toFloat(), getString(R.string.locked)))
+                        colors.add(getColor(R.color.gray))
                     }
                     if (readyToLearn > 0) {
-                        entries.add(PieEntry(readyToLearn.toFloat(), "Not learnt"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.green))
+                        entries.add(PieEntry(readyToLearn.toFloat(), getString(R.string.not_learnt)))
+                        colors.add(getColor(R.color.green))
                     }
                     if (startedToLearn > 0) {
-                        entries.add(PieEntry(startedToLearn.toFloat(), "Started to learn"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.darker_green))
+                        entries.add(PieEntry(startedToLearn.toFloat(), getString(R.string.started_to_learn)))
+                        colors.add(getColor(R.color.darker_green))
                     }
                     if (semiLearnt > 0) {
-                        entries.add(PieEntry(semiLearnt.toFloat(), "Learnt somewhat"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.dark_green))
+                        entries.add(PieEntry(semiLearnt.toFloat(), getString(R.string.learnt_somewhat)))
+                        colors.add(getColor(R.color.dark_green))
                     }
                     if (learnt > 0) {
-                        entries.add(PieEntry(learnt.toFloat(), "Learnt"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.darkest_green))
+                        entries.add(PieEntry(learnt.toFloat(), getString(R.string.learnt)))
+                        colors.add(getColor(R.color.darkest_green))
                     }
                     if (burnt > 0) {
-                        entries.add(PieEntry(burnt.toFloat(), "Burnt"))
-                        colors.add(ContextCompat.getColor(requireContext(), R.color.black))
+                        entries.add(PieEntry(burnt.toFloat(), getString(R.string.burnt)))
+                        colors.add(getColor(R.color.black))
                     }
                     val dataSet = PieDataSet(entries, "")
                     dataSet.colors = colors
