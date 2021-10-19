@@ -11,9 +11,11 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm.DEFAULT
 import com.github.mikephil.charting.components.LegendEntry
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.coroutines.*
 import ru.wherexibucks.database.Dao
+import ru.wherexibucks.graph.DecimalFormatter
 
 @DelicateCoroutinesApi
 class StatsFragment : Fragment() {
@@ -36,15 +38,42 @@ class StatsFragment : Fragment() {
         // заполняем график проверок
         val reviewsChart = view?.findViewById<BarChart>(R.id.reviews_chart)
         if (reviewsChart != null) {
-            reviewsChart.description.isEnabled = false
+            val axisLeft = reviewsChart.axisLeft
+            val axisRight = reviewsChart.axisRight
+            val xAxis = reviewsChart.xAxis
+            // убираем отрисовку сетки
+            xAxis.setDrawGridLines(false)
+            xAxis.setDrawAxisLine(false)
+            axisLeft.setDrawGridLines(false)
+            axisLeft.setDrawAxisLine(false)
+            axisRight.setDrawGridLines(false)
+            axisRight.setDrawAxisLine(false)
             reviewsChart.setDrawGridBackground(false)
+            // задаем форматирование значений осей
+            axisLeft.valueFormatter = DecimalFormatter()
+            axisRight.valueFormatter = DecimalFormatter()
+            xAxis.setDrawLabels(false)
+            // отрисовываем полоску нуля
+            axisRight.setDrawZeroLine(true)
+            axisLeft.setDrawZeroLine(true)
+            // даты отображаются снизу
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            // убираем отображение описания
+            reviewsChart.description.isEnabled = false
+            // убираем отрисовку границ графика
             reviewsChart.setDrawBorders(false)
+            // убираем возможность выбора значений
+            reviewsChart.setTouchEnabled(false)
             reviewsChart.isHighlightPerDragEnabled = false
             reviewsChart.isHighlightPerTapEnabled = false
+            // задаем кастомную легенду
             val legend = reviewsChart.legend
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
             val right = LegendEntry(getString(R.string.right), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.green))
             val wrong = LegendEntry(getString(R.string.wrong), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.red))
             legend.setCustom(arrayOf(right, wrong))
+            // заполняем и отрисовываем
             GlobalScope.launch(Dispatchers.IO) {
                 val reviews = dao.getReviewStats(30)
                 withContext(Dispatchers.Main) {
@@ -77,6 +106,7 @@ class StatsFragment : Fragment() {
             levelsChart.description.isEnabled = false
             levelsChart.isHighlightPerTapEnabled = false
             levelsChart.setDrawEntryLabels(false)
+            levelsChart.setTouchEnabled(false)
             GlobalScope.launch(Dispatchers.IO) {
                 val readyToLearn = dao.getReadyToBeLearntCount()
                 val locked = dao.getForLevel(-1) - readyToLearn

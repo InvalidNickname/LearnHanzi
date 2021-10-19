@@ -55,43 +55,14 @@ class ReviewFragment : Fragment() {
         }
         button.setOnClickListener {
             if (answered) {
-                GlobalScope.launch(Dispatchers.IO) {
-                    val card = list[i]
-                    val currentDate = format.format(Date())
-                    var stats = dao.getStatsForDay(currentDate)
-                    if (stats == null) stats = Stats(currentDate, 0, 0)
-                    if (correct) {
-                        // ответ правильный
-                        if (card.level < 8) {
-                            card.level++
-                            card.time = System.currentTimeMillis() + nextTimeMatrix[card.level] * 3600000
-                        } else {
-                            card.time = Long.MAX_VALUE
-                        }
-                        stats.revRight++
-                    } else {
-                        // ответ неправильный
-                        if (card.level >= 5) {
-                            card.level -= 2
-                        } else {
-                            card.level--
-                        }
-                        card.time = 0
-                        stats.revWrong++
-                    }
-                    dao.updateCards(card)
-                    dao.insertOrReplaceState(stats)
-                    answered = false
-                    withContext(Dispatchers.Main) {
-                        if (++i < list.size) {
-                            inflate()
-                            answer.visibility = View.VISIBLE
-                            result.visibility = View.GONE
-                            button.text = getString(R.string.check)
-                        } else {
-                            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
-                        }
-                    }
+                answered = false
+                if (++i < list.size) {
+                    inflate()
+                    answer.visibility = View.VISIBLE
+                    result.visibility = View.GONE
+                    button.text = getString(R.string.check)
+                } else {
+                    parentFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
                 }
             } else {
                 if (answer.text.toString() == "") {
@@ -108,8 +79,39 @@ class ReviewFragment : Fragment() {
                         view?.findViewById<TextView>(R.id.definition)?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
                     }
                     answer.text.clear()
+                    checkAnswer()
                 }
             }
+        }
+    }
+
+    private fun checkAnswer() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val card = list[i]
+            val currentDate = format.format(Date())
+            var stats = dao.getStatsForDay(currentDate)
+            if (stats == null) stats = Stats(currentDate, 0, 0)
+            if (correct) {
+                // ответ правильный
+                if (card.level < 8) {
+                    card.level++
+                    card.time = System.currentTimeMillis() + nextTimeMatrix[card.level] * 3600000
+                } else {
+                    card.time = Long.MAX_VALUE
+                }
+                stats.revRight++
+            } else {
+                // ответ неправильный
+                if (card.level >= 5) {
+                    card.level -= 2
+                } else {
+                    card.level--
+                }
+                card.time = 0
+                stats.revWrong++
+            }
+            dao.updateCards(card)
+            dao.insertOrReplaceState(stats)
         }
     }
 
