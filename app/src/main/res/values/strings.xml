@@ -18,4 +18,7 @@
     <string name="learnt_somewhat">Learnt somewhat</string>
     <string name="learnt">Learnt</string>
     <string name="burnt">Burnt</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
 </resources>

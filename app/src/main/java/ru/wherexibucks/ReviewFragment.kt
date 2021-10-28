@@ -25,6 +25,9 @@ class ReviewFragment : Fragment() {
     private var answered = false
     private var correct = false
     private lateinit var button: Button
+    private lateinit var easyButton: Button
+    private lateinit var normalButton: Button
+    private lateinit var hardButton: Button
     private lateinit var answer: EditText
     private lateinit var result: ConstraintLayout
     private lateinit var list: Array<Card>
@@ -38,10 +41,15 @@ class ReviewFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         dao = (activity as MainActivity).getDatabase().dao()!!
         button = view?.findViewById(R.id.next)!!
         answer = view?.findViewById(R.id.definition_input)!!
         result = view?.findViewById(R.id.review_answered)!!
+        easyButton = view?.findViewById(R.id.easy)!!
+        normalButton = view?.findViewById(R.id.normal)!!
+        hardButton = view?.findViewById(R.id.hard)!!
+
         GlobalScope.launch(Dispatchers.IO) {
             list = dao.getReview(System.currentTimeMillis())
             if (list.isEmpty()) {
@@ -53,17 +61,10 @@ class ReviewFragment : Fragment() {
                 }
             }
         }
+
         button.setOnClickListener {
             if (answered) {
-                answered = false
-                if (++i < list.size) {
-                    inflate()
-                    answer.visibility = View.VISIBLE
-                    result.visibility = View.GONE
-                    button.text = getString(R.string.check)
-                } else {
-                    parentFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
-                }
+                checkAndUpdate()
             } else {
                 if (answer.text.toString() == "") {
                     answer.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
@@ -71,21 +72,63 @@ class ReviewFragment : Fragment() {
                     answered = true
                     answer.visibility = View.GONE
                     result.visibility = View.VISIBLE
-                    button.text = getString(R.string.next)
-                    correct = normalizeText(answer.text.toString()) == normalizeText(list[i].definition)
+                    val definitions = list[i].definition.split(',')
+                    correct = false
+                    for (def in definitions) {
+                        if (normalizeText(answer.text.toString()) == normalizeText(def)) {
+                            correct = true
+                            break
+                        }
+                    }
                     if (correct) {
                         view?.findViewById<TextView>(R.id.definition)?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                        setVisibilityForDiff(View.VISIBLE)
+                        button.visibility = View.GONE
                     } else {
                         view?.findViewById<TextView>(R.id.definition)?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+                        button.text = getString(R.string.next)
+                        updateDatabase(i = i, correct = false)
                     }
                     answer.text.clear()
-                    checkAnswer()
                 }
             }
         }
+        easyButton.setOnClickListener {
+            checkAndUpdate(2.0f)
+        }
+        normalButton.setOnClickListener {
+            checkAndUpdate()
+        }
+        hardButton.setOnClickListener {
+            checkAndUpdate(0.5f)
+        }
     }
 
-    private fun checkAnswer() {
+    private fun checkAndUpdate(modifier: Float = 1.0f) {
+        answered = false
+        if (correct) {
+            updateDatabase(modifier, i, true)
+            correct = false
+        }
+        if (++i < list.size) {
+            inflate()
+            answer.visibility = View.VISIBLE
+            result.visibility = View.GONE
+            button.visibility = View.VISIBLE
+            button.text = getString(R.string.check)
+            setVisibilityForDiff(View.GONE)
+        } else {
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
+        }
+    }
+
+    private fun setVisibilityForDiff(visibility: Int) {
+        easyButton.visibility = visibility
+        normalButton.visibility = visibility
+        hardButton.visibility = visibility
+    }
+
+    private fun updateDatabase(modifier: Float = 1.0f, i: Int, correct: Boolean) {
         GlobalScope.launch(Dispatchers.IO) {
             val card = list[i]
             val currentDate = format.format(Date())
@@ -95,7 +138,7 @@ class ReviewFragment : Fragment() {
                 // ответ правильный
                 if (card.level < 8) {
                     card.level++
-                    card.time = System.currentTimeMillis() + nextTimeMatrix[card.level] * 3600000
+                    card.time = System.currentTimeMillis() + (nextTimeMatrix[card.level] * 3600000 * modifier).toLong()
                 } else {
                     card.time = Long.MAX_VALUE
                 }
