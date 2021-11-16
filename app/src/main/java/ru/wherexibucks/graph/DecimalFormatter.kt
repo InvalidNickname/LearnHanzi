@@ -1,6 +1,5 @@
 package ru.wherexibucks.graph
 
-import android.util.Log
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
