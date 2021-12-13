@@ -15,6 +15,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.coroutines.*
 import ru.wherexibucks.database.Dao
+import ru.wherexibucks.graph.DateFormatter
 import ru.wherexibucks.graph.DecimalFormatter
 
 @DelicateCoroutinesApi
@@ -52,7 +53,6 @@ class StatsFragment : Fragment() {
             // задаем форматирование значений осей
             axisLeft.valueFormatter = DecimalFormatter()
             axisRight.valueFormatter = DecimalFormatter()
-            xAxis.setDrawLabels(false)
             // отрисовываем полоску нуля
             axisRight.setDrawZeroLine(true)
             axisLeft.setDrawZeroLine(true)
@@ -70,16 +70,21 @@ class StatsFragment : Fragment() {
             val legend = reviewsChart.legend
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            val right = LegendEntry(getString(R.string.right), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.green))
-            val wrong = LegendEntry(getString(R.string.wrong), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.red))
-            legend.setCustom(arrayOf(right, wrong))
+            legend.setCustom(
+                arrayOf(
+                    LegendEntry(getString(R.string.right), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.green)),
+                    LegendEntry(getString(R.string.wrong), DEFAULT, Float.NaN, Float.NaN, null, getColor(R.color.red))
+                )
+            )
             // заполняем и отрисовываем
             GlobalScope.launch(Dispatchers.IO) {
                 val reviews = dao.getReviewStats(30)
+                xAxis.valueFormatter = DateFormatter(reviews)
                 withContext(Dispatchers.Main) {
                     val entries = ArrayList<BarEntry>()
+                    val size = reviews.size
                     for (i in reviews.indices) {
-                        entries.add(BarEntry(i.toFloat(), floatArrayOf(reviews[i].revRight.toFloat(), reviews[i].revWrong.toFloat())))
+                        entries.add(BarEntry(size - i.toFloat(), floatArrayOf(reviews[i].revRight.toFloat(), reviews[i].revWrong.toFloat())))
                     }
                     val dataSet = BarDataSet(entries.toList(), "")
                     dataSet.setDrawValues(false)
