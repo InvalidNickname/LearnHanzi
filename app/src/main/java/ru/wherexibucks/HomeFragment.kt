@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +18,7 @@ class HomeFragment : Fragment() {
     private lateinit var dao: Dao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -38,6 +40,10 @@ class HomeFragment : Fragment() {
         // кнопка списка
         view?.findViewById<View>(R.id.button_list)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ListFragment(), "list").commit()
+        }
+        // кнопка обновления базы
+        view?.findViewById<View>(R.id.button_manage)?.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ManagerFragment(), "manager").commit()
         }
         // обновляем количество карточек для изучения/повторения
         GlobalScope.launch(Dispatchers.IO) {

@@ -72,11 +72,18 @@ interface Dao {
     suspend fun countAll(): Int
 
     /**
+     * Возвращает массив строк с радикалами для символа
+     * @param parent - символ, для которого ищутся радикалы
+     */
+    @Query("SELECT radical FROM RadicalLink WHERE parent == :parent")
+    suspend fun getRadicals(parent: String): Array<String>
+
+    /**
      * Добавляет статистику для дня
      * @param stats - статистика ответов за день
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrReplaceState(stats: Stats)
+    suspend fun insertOrReplaceStats(stats: Stats)
 
     /**
      * Возвращает статистику за указанный день
@@ -91,6 +98,27 @@ interface Dao {
      */
     @Query("SELECT * FROM Stats ORDER BY date ASC LIMIT :interval")
     suspend fun getReviewStats(interval: Int): Array<Stats>
+
+    /**
+     * Возвращает карточку с выбранным символом, если такой нет, возвращает Null
+     * @param symbol - символ для поиска
+     */
+    @Query("SELECT * FROM Card WHERE symbol == :symbol")
+    suspend fun getCardOrGetNull(symbol: String): Card?
+
+    /**
+     * Удаляет все связи с радикалами для данного символа
+     * @param parent - символ для удаления
+     */
+    @Query("DELETE FROM RadicalLink WHERE parent == :parent")
+    suspend fun clearLinks(parent: String)
+
+    /**
+     * Добавляет все связи символ-радикал в базу
+     * @param links - связи для добавления
+     */
+    @Insert
+    suspend fun insertLinks(vararg links: RadicalLink)
 
     /**
      * Возвращает список всех карточек

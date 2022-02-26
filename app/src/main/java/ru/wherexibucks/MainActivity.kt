@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         val reviewFragment = supportFragmentManager.findFragmentByTag("review")
         val statsFragment = supportFragmentManager.findFragmentByTag("stats")
         val listFragment = supportFragmentManager.findFragmentByTag("list")
-        if (learnFragment != null || reviewFragment != null || statsFragment != null || listFragment != null) {
+        val managerFragment = supportFragmentManager.findFragmentByTag("manager")
+        if (learnFragment != null || reviewFragment != null || statsFragment != null || listFragment != null || managerFragment != null) {
             supportFragmentManager.beginTransaction().replace(R.id.main_fragment, HomeFragment(), "home").commit()
         } else {
             super.onBackPressed()
