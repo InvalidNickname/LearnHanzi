@@ -1,4 +1,4 @@
-package ru.wherexibucks
+package ru.wherexibucks.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
+import ru.wherexibucks.MainActivity
+import ru.wherexibucks.R
 import ru.wherexibucks.database.Card
 import ru.wherexibucks.database.Dao
 import ru.wherexibucks.database.Stats

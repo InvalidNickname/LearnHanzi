@@ -1,4 +1,4 @@
-package ru.wherexibucks
+package ru.wherexibucks.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
+import ru.wherexibucks.MainActivity
+import ru.wherexibucks.R
 import ru.wherexibucks.database.Dao
 
 @DelicateCoroutinesApi
@@ -44,6 +46,15 @@ class HomeFragment : Fragment() {
         // кнопка обновления базы
         view?.findViewById<View>(R.id.button_manage)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ManagerFragment(), "manager").commit()
+        }
+        // кнопка перехода на альтернативный экран
+        view?.findViewById<View>(R.id.navigate_next)?.setOnClickListener {
+            (activity as MainActivity).setAlternativeHome(true)
+            parentFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_from_left, R.anim.exit_to_right)
+                .replace(R.id.main_fragment, AlternativeHomeFragment(), "alternative")
+                .commit()
         }
         // обновляем количество карточек для изучения/повторения
         GlobalScope.launch(Dispatchers.IO) {

@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <View
-        android:id="@+id/navigate_next"
+        android:id="@+id/navigate_previous"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_navigate_next"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_navigate_previous"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/n_more_left"
+            android:text="@string/n_lessons_left"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -165,34 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_manage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_background"
-        android:elevation="5dp"
-        app:layout_constraintDimensionRatio="2.5:1"
-        app:layout_constraintEnd_toEndOf="@id/button_review"
-        app:layout_constraintStart_toStartOf="@id/button_review"
-        app:layout_constraintTop_toBottomOf="@id/lower_guideline"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/manage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/manage"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/button_manage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/button_manage" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintGuide_percent="0.85" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

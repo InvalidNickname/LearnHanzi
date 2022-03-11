@@ -28,4 +28,5 @@
     <string name="parent_radicals">Parent radicals</string>
     <string name="add">Add</string>
     <string name="modify">Modify</string>
+    <string name="n_lessons_left">%d lessons left</string>
 </resources>

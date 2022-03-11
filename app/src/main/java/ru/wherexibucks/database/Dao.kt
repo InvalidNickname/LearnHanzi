@@ -16,6 +16,13 @@ interface Dao {
     suspend fun getReadyToBeLearnt(): Array<Card>
 
     /**
+     * Возвращает слова, которые можно начать учить - они еще не рассматривались до этого,
+     * не имеют составляющих, либо все их составляющие полностью выучены
+     */
+    @Query("SELECT * FROM Word WHERE level = -1 AND (SELECT COUNT(*) FROM HanjiLink WHERE HanjiLink.word = Word.word) = (SELECT COUNT(*) FROM HanjiLink WHERE HanjiLink.word = Word.word AND (SELECT COUNT(*) FROM Word WHERE word = hanji AND level >= 5)>0)")
+    suspend fun getWordsReadyToBeLearnt(): Array<Word>
+
+    /**
      * Возвращает количество символов, готовых для изучения
      */
     @Query("SELECT COUNT(*) FROM Card WHERE level = -1 AND (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol) = (SELECT COUNT(*) FROM RadicalLink WHERE parent = symbol AND (SELECT COUNT(*) FROM Card WHERE symbol = radical AND level >= 5)>0)")
@@ -87,7 +94,7 @@ interface Dao {
 
     /**
      * Возвращает статистику за указанный день
-     * @param date
+     * @param date - дата, за которую надо вернуть статистику
      */
     @Query("SELECT * FROM Stats WHERE date = :date LIMIT 1")
     suspend fun getStatsForDay(date: String): Stats?

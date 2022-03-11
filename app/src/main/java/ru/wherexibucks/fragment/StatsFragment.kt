@@ -1,4 +1,4 @@
-package ru.wherexibucks
+package ru.wherexibucks.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +15,8 @@ import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.coroutines.*
+import ru.wherexibucks.MainActivity
+import ru.wherexibucks.R
 import ru.wherexibucks.database.Dao
 import ru.wherexibucks.graph.DateFormatter
 import ru.wherexibucks.graph.DecimalFormatter
