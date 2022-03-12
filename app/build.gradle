@@ -40,5 +40,5 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.3.0"
     kapt "androidx.room:room-compiler:2.3.0"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.couchbase.lite:couchbase-lite-android-ee-ktx:3.0.0'
+    implementation 'com.couchbase.lite:couchbase-lite-android:2.7.1'
 }

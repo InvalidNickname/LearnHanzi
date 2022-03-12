@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.DelicateCoroutinesApi
+import com.couchbase.lite.*
+import kotlinx.coroutines.*
 import ru.wherexibucks.MainActivity
 import ru.wherexibucks.R
 import ru.wherexibucks.database.Dao
@@ -37,6 +39,17 @@ class AlternativeHomeFragment : Fragment() {
                 .setCustomAnimations(R.anim.slide_from_right, R.anim.exit_to_left)
                 .replace(R.id.main_fragment, HomeFragment(), "home")
                 .commit()
+        }
+        // обновляем количество уроков для обучения
+        GlobalScope.launch(Dispatchers.IO) {
+            val query: Query = QueryBuilder.select(SelectResult.all())
+                .from(DataSource.database((activity as MainActivity).getCouchbase()))
+                .where(Expression.property("learnt").equalTo(Expression.booleanValue(false)))
+            val readyToLearn = query.execute().allResults().size
+            withContext(Dispatchers.Main) {
+                view?.findViewById<ConstraintLayout>(R.id.button_learn)?.isEnabled = readyToLearn > 0
+                view?.findViewById<TextView>(R.id.n_more_left)?.text = String.format(getString(R.string.n_lessons_left), readyToLearn)
+            }
         }
     }
 }

@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.couchbase.lite.CouchbaseLite
-import com.couchbase.lite.DatabaseConfigurationFactory
-import com.couchbase.lite.create
+import com.couchbase.lite.DatabaseConfiguration
 import kotlinx.coroutines.DelicateCoroutinesApi
 import ru.wherexibucks.database.Database
 import ru.wherexibucks.fragment.AlternativeHomeFragment
 import ru.wherexibucks.fragment.HomeFragment
+import ru.wherexibucks.couchbaseutils.CouchBaseInflater
+
 
 @DelicateCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -25,11 +26,20 @@ class MainActivity : AppCompatActivity() {
         db = Room.databaseBuilder(this, Database::class.java, "cards").createFromAsset("main.db").build()
         // подключаем CouchbaseLite
         CouchbaseLite.init(applicationContext)
-        couchDb = com.couchbase.lite.Database("words", DatabaseConfigurationFactory.create())
+        if (!com.couchbase.lite.Database.exists("lessons", applicationContext.filesDir)) {
+            couchDb = com.couchbase.lite.Database("lessons", DatabaseConfiguration())
+            CouchBaseInflater().inflate(couchDb)
+        } else {
+            couchDb = com.couchbase.lite.Database("lessons", DatabaseConfiguration())
+        }
     }
 
     fun getDatabase(): Database {
         return db
+    }
+
+    fun getCouchbase(): com.couchbase.lite.Database {
+        return couchDb
     }
 
     fun isHomeAlternative(): Boolean {
