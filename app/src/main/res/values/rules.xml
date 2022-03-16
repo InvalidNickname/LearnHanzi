@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rule_1">A Chinese syllable is usually made up of an initial, a final and a tone. Generally speaking, one Chinese character corresponds to one syllable. A Chinese syllable can have no initial, but must have a final and a tone.</string>
+    <string name="rule_2">When two-third tone syllables are read in sequence, the first syllable turns into second tone, i.e., the 3+3 sequence becomes a 2+3 one. For example, nĭ (你) + hăo (好) is read "ní hăo". However, when put in the written form, the original tone is kept.</string>
+    <string name="rule_3">Apart from the four tones mentioned previously, there is another tone in Chinese, which is short and light, known as "neutral tone". For example: māma, yéye, nǎinai, bàba</string>
+    <string name="rule_4">Tone marks in Chinese pinyin are put above vowels. When there are two or more vowels in the final of a syllable, the tone should be marked on the one that is pronounced with the mouth more wide-open, the sequence being "a, o, e, i, u, ü" in the descending order. The the compound final iu is and exception to this rule, in which tone mark is put on u rather than i as iu is the abbreviation of iou. The neutral tone is unmarked.</string>
+</resources>

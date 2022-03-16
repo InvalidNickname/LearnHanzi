@@ -61,7 +61,7 @@
         android:background="@drawable/button_background"
         android:elevation="5dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/button_review"
+        app:layout_constraintBottom_toTopOf="@id/button_rules"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_review"
+        android:id="@+id/button_rules"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
@@ -124,7 +124,7 @@
             android:id="@+id/review_hanzi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/review_hanzi"
+            android:text="@string/rules"
             android:textColor="@color/black"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@id/review"
@@ -137,26 +137,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/review"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/n_more_left_review"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/review_hanzi" />
-
-        <TextView
-            android:id="@+id/n_more_left_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/n_more_left"
+            android:text="@string/rules_button"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/review" />
+            app:layout_constraintTop_toBottomOf="@id/review_hanzi" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

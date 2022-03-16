@@ -49,7 +49,10 @@ class LearningFragment : Fragment() {
             GlobalScope.launch(Dispatchers.IO) {
                 val query: Query = QueryBuilder.select(SelectResult.all())
                     .from(DataSource.database((activity as MainActivity).getCouchbase()))
-                    .where(Expression.property("learnt").equalTo(Expression.booleanValue(false)))
+                    .where(
+                        Expression.property("learnt").equalTo(Expression.booleanValue(false))
+                            .and(Expression.property("type").equalTo(Expression.string("lesson")))
+                    )
                 val results = query.execute().allResults()
                 if (results.size == 0) {
                     parentFragmentManager.beginTransaction().replace(R.id.main_fragment, AlternativeHomeFragment(), "alternative").commit()
@@ -75,7 +78,10 @@ class LearningFragment : Fragment() {
                 GlobalScope.launch(Dispatchers.IO) {
                     val query: Query = QueryBuilder.select(SelectResult.expression(Meta.id), SelectResult.all())
                         .from(DataSource.database((activity as MainActivity).getCouchbase()))
-                        .where(Expression.property("num").equalTo(Expression.intValue(0)))
+                        .where(
+                            Expression.property("num").equalTo(Expression.intValue(lessonList[i]!!.id))
+                                .and(Expression.property("type").equalTo(Expression.string("lesson")))
+                        )
                     val result = query.execute().allResults()[0]
                     val doc = (activity as MainActivity).getCouchbase().getDocument(result.getString("id")!!).toMutable()
                     doc.setBoolean("learnt", true)

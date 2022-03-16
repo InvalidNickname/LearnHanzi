@@ -30,4 +30,6 @@
     <string name="modify">Modify</string>
     <string name="n_lessons_left">%d lessons left</string>
     <string name="words_in_this_lesson">Words in this lesson:</string>
+    <string name="rules">規則</string>
+    <string name="rules_button">Rules</string>
 </resources>

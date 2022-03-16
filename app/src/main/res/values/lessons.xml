@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lesson_1_title">Lesson 1. Starting Learning</string>
+    <string-array name="lesson_1_text">
+        <item>Mandarin Chinese is spoken by over a billion people worldwide!</item>
+        <item><![CDATA[<big><b>Learning Chinese</b></big>]]></item>
+        <item>Chinese is not as difficult as you think! While the sounds and characters may be intimidating at first, Chinese grammar is actually easier than many other languages.</item>
+        <item><![CDATA[<big><b>What is pinyin?</b></big>]]></item>
+        <item>Chinese doesn\'t have an alphabet like English. Instead of using letters to represent sounds, Chinese characters (like 好, which means good) represent entire words. A word can also have more than one character (for example 高兴, which means happy).</item>
+        <item>To make things easier, pinyin represents the sounds of Mandarin Chinese using the Roman alphabet. The common greeting 你好 (hello) is written below using letters you will recognize.</item>
+        <item><![CDATA[<big><b>Tones</b></big>]]></item>
+        <item>A big difference between Chinese and English is the use of tones. In Chinese, the inflection you use to pronounce a syllable can create a new word entirely.</item>
+        <item>In English, you might be shouting (Mom!), asking a question (Mom?), or complaining (Mah‑ummm!), but the meaning of Mom never changes.</item>
+        <item>This is not the case for Chinese! The basic sounds that make up the word for mother can easily mean horse… if you pronounce them with a different tone!</item>
+    </string-array>
+    <string-array name="lesson_1_words">
+        <item>妈</item>
+        <item>麻</item>
+        <item>马</item>
+        <item>骂</item>
+    </string-array>
+    <string name="lesson_2_title">Lesson 2. Numbers</string>
+    <string-array name="lesson_2_text">
+        <item>Counting in Chinese is as easy as 一 , 二 , 三 ! Next time you walk up a flight of stairs, practice a Chinese number with each step!</item>
+        <item><![CDATA[0 ‑ 零 (líng)<br />1 ‑ 一 (yī)<br />2 ‑ 二 (èr)<br />3 ‑ 三 (sān)<br />4 ‑ 四 (sì)<br />5 ‑ 五 (wǔ)<br />6 ‑ 六 (liù)<br />7 ‑ 七 (qī)<br />8 ‑ 八 (bā)<br />9 ‑ 九 (jiǔ)<br />10 ‑ 十 (shí)<br />100 ‑ 百 (bǎi)]]></item>
+        <item>Numbers 11‑100 are formed by combining the numbers above.</item>
+        <item><![CDATA[18 ‑ 十八 (shíbā)<br />30 ‑ 三十 (sānshí) <br />56 ‑ 五十六 (wǔshíliù)<br />100 ‑ 一百 (yìbǎi)]]></item>
+        <item><![CDATA[<big><b>Money</b></big>]]></item>
+        <item>Yuan is the main unit of currency in China. To say how much something costs, just add 元 (yuán) after the number. You may also see the yuan sign ¥.</item>
+        <item><![CDATA[¥8 ‑ 八元 (bā yuán)<br />¥40 ‑ 四十元 (sìshí yuán)<br />¥83 ‑ 八十三元 (bāshísān yuán)]]></item>
+        <item><![CDATA[<big><b>Tones</b></big>]]></item>
+        <item>Remember that Chinese has four tones, often referred to as the first, second, third, and fourth tone.</item>
+    </string-array>
+</resources>

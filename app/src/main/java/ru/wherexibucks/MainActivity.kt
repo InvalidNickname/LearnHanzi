@@ -6,10 +6,10 @@ import androidx.room.Room
 import com.couchbase.lite.CouchbaseLite
 import com.couchbase.lite.DatabaseConfiguration
 import kotlinx.coroutines.DelicateCoroutinesApi
+import ru.wherexibucks.couchbaseutils.CouchBaseInflater
 import ru.wherexibucks.database.Database
 import ru.wherexibucks.fragment.AlternativeHomeFragment
 import ru.wherexibucks.fragment.HomeFragment
-import ru.wherexibucks.couchbaseutils.CouchBaseInflater
 
 
 @DelicateCoroutinesApi
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         CouchbaseLite.init(applicationContext)
         if (!com.couchbase.lite.Database.exists("lessons", applicationContext.filesDir)) {
             couchDb = com.couchbase.lite.Database("lessons", DatabaseConfiguration())
-            CouchBaseInflater().inflate(couchDb)
+            CouchBaseInflater().inflate(couchDb, applicationContext)
         } else {
             couchDb = com.couchbase.lite.Database("lessons", DatabaseConfiguration())
         }
@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         val statsFragment = supportFragmentManager.findFragmentByTag("stats")
         val listFragment = supportFragmentManager.findFragmentByTag("list")
         val managerFragment = supportFragmentManager.findFragmentByTag("manager")
-        if (learnFragment != null || reviewFragment != null || statsFragment != null || listFragment != null || managerFragment != null) {
+        val rulesFragment = supportFragmentManager.findFragmentByTag("rulebook")
+        if (learnFragment != null || reviewFragment != null || statsFragment != null || listFragment != null || managerFragment != null || rulesFragment != null) {
             if (alternativeHome) {
                 supportFragmentManager.beginTransaction().replace(R.id.main_fragment, AlternativeHomeFragment(), "alternative").commit()
             } else {
