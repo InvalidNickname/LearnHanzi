@@ -22,6 +22,24 @@ class CouchBaseInflater {
                 .setString("lesson", context.getString(R.string.lesson_2_title))
                 .setArray("paragraphs", MutableArray(context.resources.getStringArray(R.array.lesson_2_text).toMutableList<Any>()))
                 .setBoolean("learnt", false),
+            MutableDocument()
+                .setInt("num", 2)
+                .setString("type", "lesson")
+                .setString("lesson", context.getString(R.string.lesson_3_title))
+                .setArray("paragraphs", MutableArray(context.resources.getStringArray(R.array.lesson_3_text).toMutableList<Any>()))
+                .setBoolean("learnt", false),
+            MutableDocument()
+                .setInt("num", 3)
+                .setString("type", "lesson")
+                .setString("lesson", context.getString(R.string.lesson_4_title))
+                .setArray("paragraphs", MutableArray(context.resources.getStringArray(R.array.lesson_4_text).toMutableList<Any>()))
+                .setBoolean("learnt", false),
+            MutableDocument()
+                .setInt("num", 4)
+                .setString("type", "lesson")
+                .setString("lesson", context.getString(R.string.lesson_5_title))
+                .setArray("paragraphs", MutableArray(context.resources.getStringArray(R.array.lesson_5_text).toMutableList<Any>()))
+                .setBoolean("learnt", false),
             MutableDocument().setInt("num", 1).setString("type", "rule").setString("rule", context.getString(R.string.rule_1)),
             MutableDocument().setInt("num", 2).setString("type", "rule").setString("rule", context.getString(R.string.rule_2)),
             MutableDocument().setInt("num", 3).setString("type", "rule").setString("rule", context.getString(R.string.rule_3)),

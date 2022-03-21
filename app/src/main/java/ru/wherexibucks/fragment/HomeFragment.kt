@@ -1,6 +1,8 @@
 package ru.wherexibucks.fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import ru.wherexibucks.database.Dao
 class HomeFragment : Fragment() {
 
     private lateinit var dao: Dao
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -27,6 +30,7 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         dao = (activity as MainActivity).getDatabase().dao()!!
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
         // кнопка изучения
         view?.findViewById<ConstraintLayout>(R.id.button_learn)?.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, LearningFragment(), "learn").commit()
@@ -44,8 +48,14 @@ class HomeFragment : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ListFragment(), "list").commit()
         }
         // кнопка обновления базы
-        view?.findViewById<View>(R.id.button_manage)?.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ManagerFragment(), "manager").commit()
+        val button = view?.findViewById<View>(R.id.button_manage)!!
+        if (preferences.getBoolean("mode_edit", false)) {
+            button.visibility = View.VISIBLE
+            button.setOnClickListener {
+                parentFragmentManager.beginTransaction().replace(R.id.main_fragment, ManagerFragment(), "manager").commit()
+            }
+        } else {
+            button.visibility = View.GONE
         }
         // кнопка перехода на альтернативный экран
         view?.findViewById<View>(R.id.navigate_next)?.setOnClickListener {

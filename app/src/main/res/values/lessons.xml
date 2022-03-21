@@ -31,4 +31,36 @@
         <item><![CDATA[<big><b>Tones</b></big>]]></item>
         <item>Remember that Chinese has four tones, often referred to as the first, second, third, and fourth tone.</item>
     </string-array>
+    <string name="lesson_3_title">Lesson 3. Name</string>
+    <string-array name="lesson_3_text">
+        <item><![CDATA[<big><b>Chinese Syllables</b></big>]]></item>
+        <item>Chinese syllables usually contain three parts: an initial (like g, k, or h), a final that contains at least one vowel (for example, a, ao, or ing), and a tone marking.</item>
+        <item><![CDATA[<big><b>Initial Sounds</b></big>]]></item>
+        <item>Pinyin letters b, p, m, f are pronounced similarly to sounds in English.</item>
+        <item><![CDATA[<big><b>Chinese Names</b></big>]]></item>
+        <item>In Chinese, the family name comes first, followed by the given name (or what we might call first name in English). In the example below, 李 (Lǐ) is the family name and 华 (Huá) is the given name.</item>
+        <item>It is common in China for people to call each other by their family names. To ask someone\'s family name, you can use 姓 (xìng).</item>
+        <item><![CDATA[<big><b>Asking Questions with 呢 (ne)</b></big>]]></item>
+        <item>呢 (ne) is used at the end of a sentence to ask things like And you? or What about her? It normally answers a question that’s just been asked while directing the question to someone else.</item>
+    </string-array>
+    <string name="lesson_4_title">Lesson 4. Greeting</string>
+    <string-array name="lesson_4_text">
+        <item><![CDATA[<big><b>Initial Sounds</b></big>]]></item>
+        <item>Pinyin letters d, t, n, and l represent four more sounds pronounced similarly to sounds in English.</item>
+        <item><![CDATA[<big><b>Tones</b></big>]]></item>
+        <item>The trick to remembering the 2nd and 4th tone is to think of them as rising (2nd) and falling (4th).</item>
+        <item><![CDATA[<big><b>Very Good! 很好 (hěn hǎo)</b></big>]]></item>
+        <item>In English, we say I am good or She is happy, but in Chinese you don’t use words like am or is before adjectives. Instead, adjectives are usually preceded by 很 (hěn). Sometimes 很 means very, but it’s more often just a way to connect a noun and an adjective.</item>
+        <item><![CDATA[<big><b>也 (yě, also)</b></big>]]></item>
+        <item>In English, we can say I am happy, too or I’m also happy, but in Chinese the word for also or too (也) always comes before the adjective.</item>
+    </string-array>
+    <string name="lesson_5_title">Lesson 5. Food</string>
+    <string-array name="lesson_5_text">
+        <item><![CDATA[<big><b>Initial Sounds</b></big>]]></item>
+        <item>Pinyin letters g, k, h, and s are pronounced similarly to sounds in English.</item>
+        <item><![CDATA[<big><b>也 (yě, also)</b></big>]]></item>
+        <item>You already know that 也 (yě), which means also or too, always comes before the adjective (for example, 我也很高兴, wǒ yě hěn gāoxìng). The same applies when 也 is used with verbs.</item>
+        <item><![CDATA[<big><b>不 (bù, not)</b></big>]]></item>
+        <item>In English, we say I do not eat noodles or He does not eat noodles. To negate a sentence in Chinese, you only need to add no (不 bù) before the verb. Easy peasy!</item>
+    </string-array>
 </resources>

@@ -1,10 +1,13 @@
 package ru.wherexibucks.fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Switch
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
@@ -25,6 +28,7 @@ import ru.wherexibucks.graph.DecimalFormatter
 class StatsFragment : Fragment() {
 
     private lateinit var dao: Dao
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -35,8 +39,14 @@ class StatsFragment : Fragment() {
         super.onStart()
         // получаем объект доступа к БД
         dao = (activity as MainActivity).getDatabase().dao()!!
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
         setUpReviewsChart()
         setUpLevelsChart()
+        val switch = requireView().findViewById<Switch>(R.id.mode_edit_switch)
+        switch.isChecked = preferences.getBoolean("mode_edit", false)
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            preferences.edit().putBoolean("mode_edit", isChecked).apply()
+        }
     }
 
     private fun setUpReviewsChart() {
