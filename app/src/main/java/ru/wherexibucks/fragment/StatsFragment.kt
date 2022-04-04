@@ -96,9 +96,8 @@ class StatsFragment : Fragment() {
                 xAxis.valueFormatter = DateFormatter(reviews)
                 withContext(Dispatchers.Main) {
                     val entries = ArrayList<BarEntry>()
-                    val size = reviews.size
                     for (i in reviews.indices) {
-                        entries.add(BarEntry(size - i.toFloat(), floatArrayOf(reviews[i].revRight.toFloat(), reviews[i].revWrong.toFloat())))
+                        entries.add(BarEntry(i.toFloat(), floatArrayOf(reviews[i].revRight.toFloat(), reviews[i].revWrong.toFloat())))
                     }
                     val dataSet = BarDataSet(entries.toList(), "")
                     dataSet.setDrawValues(false)

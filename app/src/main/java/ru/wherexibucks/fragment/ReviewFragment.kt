@@ -36,7 +36,7 @@ class ReviewFragment : Fragment() {
     private lateinit var list: Array<Card>
     private var i = 0
     private val nextTimeMatrix = intArrayOf(0, 4, 8, 24, 48, 168, 336, 672, 2688)
-    private val format = SimpleDateFormat("ddMMyyyy", Locale.US)
+    private val format = SimpleDateFormat("yyyyMMdd", Locale.US)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
